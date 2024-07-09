@@ -38,6 +38,7 @@ class _EditExpenseScreenState extends State<EditExpenseScreen> {
   }
 
   final expenseCollection = FirebaseFirestore.instance.collection('expenses');
+  final moneyCollection = FirebaseFirestore.instance.collection('money');
   final categoryCollection = FirebaseFirestore.instance.collection('categories');
   final user = FirebaseAuth.instance.currentUser!;
 
@@ -306,7 +307,24 @@ class _EditExpenseScreenState extends State<EditExpenseScreen> {
       final querySnapshot = await expenseCollection.where('expenseId', isEqualTo: _expense.expenseId).get();
       if (querySnapshot.docs.isNotEmpty) {
         final docId = querySnapshot.docs.first.id;
+        final mData = querySnapshot.docs.first;
         final expenseRef = expenseCollection.doc(docId);
+
+        final userMoneySnapshot = await moneyCollection
+            .where('userId', isEqualTo: _expense.userId)
+            .get();
+
+          final userMoneyDocId = userMoneySnapshot.docs.first.id;
+          final currentBalance = userMoneySnapshot.docs.first
+              .data()['amount']; // Assuming 'balance' is the field name
+
+          // Update the balance by adding the expense amount
+          final updatedBalance = currentBalance + mData.data()['amount'];
+          // Update the user's balance in the money table
+          await moneyCollection.doc(userMoneyDocId).update(
+              {'amount': updatedBalance});
+
+
         expenseRef.update({
           'amount': _expense.amount,
           'date': _expense.date,
@@ -328,6 +346,23 @@ class _EditExpenseScreenState extends State<EditExpenseScreen> {
             _isLoading = false;
           });
         });
+        // Update the balance by adding the expense amount
+        final querySnapshot2 = await expenseCollection.where('expenseId', isEqualTo: _expense.expenseId).get();
+        final currentBal = querySnapshot2.docs.first
+            .data()['amount']; // Assuming 'balance' is the field n
+
+        final moneySnapshot = await moneyCollection
+            .where('userId', isEqualTo: _expense.userId)
+            .get();
+
+        final moneyDocId = moneySnapshot.docs.first.id;
+        final mcurrentBalance = moneySnapshot.docs.first
+            .data()['amount']; //
+        final balance = mcurrentBalance - currentBal;
+
+        // Update the user's balance in the money table
+        await moneyCollection.doc(moneyDocId).update(
+            {'amount': balance});
       }
     }
   }

@@ -25,6 +25,7 @@ class _AllExpenseState extends State<AllExpense> {
     expenses = widget.expenses;
   }
       final expenseCollection = FirebaseFirestore.instance.collection('expenses');
+      final moneyCollection = FirebaseFirestore.instance.collection('money');
 
   @override
   Widget build(BuildContext context) {
@@ -181,11 +182,29 @@ class _AllExpenseState extends State<AllExpense> {
               child: const Text('Delete'),
               onPressed: () async {
                 // Delete the expense from Firebase
-              
+
                   final querySnapshot = await expenseCollection.where('expenseId', isEqualTo: expense.expenseId).get();
                   if (querySnapshot.docs.isNotEmpty) {
                     final docId = querySnapshot.docs.first.id;
-                    final expenseRef = expenseCollection
+                    final amount = querySnapshot.docs.first;
+
+                    final userMoneySnapshot = await moneyCollection
+                        .where('userId', isEqualTo: expense.userId)
+                        .get();
+
+                    if (userMoneySnapshot.docs.isNotEmpty) {
+                      final userMoneyDocId = userMoneySnapshot.docs.first.id;
+                      final currentBalance = userMoneySnapshot.docs.first
+                          .data()['amount']; // Assuming 'balance' is the field name
+
+                      // Update the balance by adding the expense amount
+                      final updatedBalance = currentBalance + amount.data()['amount'];
+
+                      // Update the user's balance in the money table
+                      await moneyCollection.doc(userMoneyDocId).update(
+                          {'amount': updatedBalance});
+                    }
+                  final expenseRef = expenseCollection
                     .doc(docId);
                    await expenseRef.delete().then((_) {
                     setState(() {

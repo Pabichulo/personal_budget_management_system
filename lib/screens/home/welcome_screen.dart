@@ -85,6 +85,19 @@ class _WelcomeScreenState extends State<WelcomeScreen> with TickerProviderStateM
                   height:  MediaQuery.of(context).size.height / 1.2,
                   child: Column(
                     children: [
+                      const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 50.0),
+                        child: Center(
+                          child: Text(
+                            "PERSONAL BUDGET TRACKER",
+                            style: TextStyle(
+                              color: Colors.white, // You can change this to any color you like
+                              fontSize: 20.0, // You can change this to any font size you like
+                              fontWeight: FontWeight.bold
+                            ),
+                          ),
+                        ),
+                      ),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 50.0),
                           child: TabBar(
