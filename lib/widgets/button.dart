@@ -13,7 +13,7 @@ class Button extends StatelessWidget {
   final double fontSize;
 
   const Button({
-    Key? key,
+    super.key,
     required this.text,
     required this.icon,
     required this.onPressed,
@@ -24,7 +24,7 @@ class Button extends StatelessWidget {
     this.paddingVertical = 16.0,
     this.paddingHorizontal = 32.0,
     this.fontSize = 16.0,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

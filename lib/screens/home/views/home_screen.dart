@@ -24,7 +24,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int index = 0;
-  Color selectedItem = Color.fromARGB(255, 71, 0, 73);
+  Color selectedItem = const Color.fromARGB(255, 71, 0, 73);
   Color unselectedItem = Colors.grey;
 
     final user = FirebaseAuth.instance.currentUser!;

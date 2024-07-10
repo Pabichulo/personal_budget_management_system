@@ -22,7 +22,7 @@ String formatDate(DateTime date) {
   } else {
     final difference = today.difference(date).inDays;
     if (difference < 7) {
-      return '${difference} days ago';
+      return '$difference days ago';
     } else {
       final weeks = (difference / 7).floor();
       return '$weeks weeks ago';

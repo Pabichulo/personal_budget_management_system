@@ -1,6 +1,5 @@
 import 'package:expense_repository/expense_repository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:personal_budget_managemet/screens/add_expense/views/edit_expense_screen.dart';
 import 'package:personal_budget_managemet/utils/utils.dart';

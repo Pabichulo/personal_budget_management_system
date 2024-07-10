@@ -6,7 +6,7 @@ class TimerWidget extends StatefulWidget {
   final Duration duration;
   final bool color_status;
 
-  TimerWidget({required this.initialMessage, required this.duration, required this.color_status});
+  const TimerWidget({super.key, required this.initialMessage, required this.duration, required this.color_status});
 
   @override
   _TimerWidgetState createState() => _TimerWidgetState();
