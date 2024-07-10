@@ -2,7 +2,6 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:expense_repository/expense_repository.dart';
 import 'package:personal_budget_managemet/data/indicator.dart';
-import 'package:personal_budget_managemet/data/app_resources.dart';
 
 class MyMonthlyPieChart extends StatefulWidget {
   final List<Expense> expenses;
@@ -141,7 +140,7 @@ class MyMonthlyPieChartState extends State<MyMonthlyPieChart> {
     final List<Widget> indicatorWidgets = [];
     int colorIndex = 0;
 
-    categorySums.keys.forEach((category) {
+    for (var category in categorySums.keys) {
       final color = availableColors[colorIndex % availableColors.length];
       indicatorWidgets.add(Indicator(
         color: color,
@@ -149,7 +148,7 @@ class MyMonthlyPieChartState extends State<MyMonthlyPieChart> {
         isSquare: true,
       ));
       colorIndex++;
-    });
+    }
 
     return indicatorWidgets;
   }

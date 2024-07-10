@@ -50,7 +50,7 @@ class _StatScreenState extends State<StatScreen> {
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child:  Padding(
-                          padding: EdgeInsets.fromLTRB(12, 20, 12, 12),
+                          padding: const EdgeInsets.fromLTRB(12, 20, 12, 12),
                           child: MyChart(expenses),
                         ),
                       ),
@@ -63,7 +63,7 @@ class _StatScreenState extends State<StatScreen> {
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child:  Padding(
-                          padding: EdgeInsets.fromLTRB(12, 20, 12, 12),
+                          padding: const EdgeInsets.fromLTRB(12, 20, 12, 12),
                           child: MyPieChart(expenses), // Pie chart widget
                         ),
                       ),
